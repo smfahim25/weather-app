@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { FaSearchLocation } from "react-icons/fa";
 
-const Search = () => {
+const Search = ({ onSearch }) => {
   const [search, setSearch] = useState("");
 
   const handleSearchClick = () => {
-    console.log(search);
+    onSearch(search);
   };
   return (
     <div className="flex flex-row jsutify-center my-6 bg-slate-500 p-5">
