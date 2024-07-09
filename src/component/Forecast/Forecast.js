@@ -21,7 +21,7 @@ const Forecast = ({ data }) => {
         {data.list.slice(0, 7).map((item, idx) => (
           <div key={idx} className="bg-white rounded-xl p-5">
             <div className="text-center">
-              <label className="font-semibold text-lg dark:text-gray-200">
+              <label className="font-semibold text-lg">
                 {forecastDays[idx]}
               </label>
               <img
