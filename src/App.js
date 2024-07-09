@@ -60,12 +60,13 @@ function App() {
     <div>
       <div>
         <Search onSearch={handleOnSearch} />
-        {loading ? (
-          <Loader />
-        ) : (
-          currentWeather && !loading && <Weather data={currentWeather} />
+        {loading && (
+          <div className="mt-10">
+            <Loader />
+          </div>
         )}
-        {forecast && <Forecast data={forecast} />}
+        {currentWeather && !loading && <Weather data={currentWeather} />}
+        {forecast && !loading && <Forecast data={forecast} />}
         <ToastContainer />
       </div>
     </div>
