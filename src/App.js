@@ -2,13 +2,19 @@ import { useState } from "react";
 import "./App.css";
 import Search from "./component/Search/Search";
 import { WEATHER_API_URL, WEATHER_API_KEY } from "./api";
+import Weather from "./component/Weather/Weather";
+import Loader from "./Shared/Loader";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleOnSearch = (searchData) => {
     // Fetch current weather
+    setLoading(true);
     fetch(
       `${WEATHER_API_URL}/weather?q=${searchData}&units=metric&appid=${WEATHER_API_KEY}`
     )
@@ -25,16 +31,30 @@ function App() {
           .then((forecastResponse) => forecastResponse.json())
           .then((forecastResponse) => {
             // Update state with both current weather and forecast data
-            setCurrentWeather({ city: searchData, ...weatherResponse });
-            setForecast({ city: searchData, ...forecastResponse });
+            setCurrentWeather({
+              city: weatherResponse.name,
+              ...weatherResponse,
+            });
+            setForecast({ city: weatherResponse.name, ...forecastResponse });
+            setLoading(false);
           });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setCurrentWeather(null);
+        toast.error("City not found !!!, Enter valid city name");
+      });
+    setLoading(false);
   };
 
   return (
     <div className="mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br h-fit">
       <Search onSearch={handleOnSearch} />
+      {loading ? (
+        <Loader />
+      ) : (
+        currentWeather && !loading && <Weather data={currentWeather} />
+      )}
+      <ToastContainer />
     </div>
   );
 }
