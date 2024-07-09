@@ -6,6 +6,7 @@ import Weather from "./component/Weather/Weather";
 import Loader from "./Shared/Loader";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Forecast from "./component/Forecast/Forecast";
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState(null);
@@ -41,20 +42,24 @@ function App() {
       })
       .catch((err) => {
         setCurrentWeather(null);
+        setForecast(null);
         toast.error("City not found !!!, Enter valid city name");
       });
     setLoading(false);
   };
 
   return (
-    <div className="mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br h-fit">
-      <Search onSearch={handleOnSearch} />
-      {loading ? (
-        <Loader />
-      ) : (
-        currentWeather && !loading && <Weather data={currentWeather} />
-      )}
-      <ToastContainer />
+    <div>
+      <div>
+        <Search onSearch={handleOnSearch} />
+        {loading ? (
+          <Loader />
+        ) : (
+          currentWeather && !loading && <Weather data={currentWeather} />
+        )}
+        {forecast && <Forecast data={forecast} />}
+        <ToastContainer />
+      </div>
     </div>
   );
 }

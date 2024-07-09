@@ -2,8 +2,8 @@
   width: 400px;
   border-radius: 9px;
   box-shadow: 10px -2px 20px 2px rgb(0 0 0 / 30%);
-  color: #fff;
-  background-color: #64748b;
+  color: #0ca5e9;
+  background-color: white;
   margin: 20px auto 0 auto;
   padding: 0 20px 20px 20px;
 }
@@ -17,7 +17,7 @@
 
 .city {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 25px;
   line-height: 1;
   margin: 0;
   letter-spacing: 1px;
@@ -25,7 +25,7 @@
 
 .weatherDescription {
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1;
   margin: 0;
   text-transform: capitalize;
