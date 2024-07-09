@@ -15,7 +15,7 @@ const Search = ({ onSearch }) => {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="search"
           type="text"
-          className="text-xl mr-3 font-normal p-2 w-[200px] rounded-md shadow-xl focus:outline-none capitalize placeholder:lowercase"
+          className="text-xl mr-3 font-normal p-2 w-full rounded-md shadow-xl focus:outline-none capitalize placeholder:lowercase"
         />
         <FaSearchLocation
           onClick={handleSearchClick}

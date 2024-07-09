@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Search from "./component/Search/Search";
 import { WEATHER_API_URL, WEATHER_API_KEY } from "./api";
@@ -13,15 +13,15 @@ function App() {
   const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleOnSearch = (searchData) => {
-    // Fetch current weather
+  const defaultCity = "Dhaka";
+
+  const fetchWeatherData = (city) => {
     setLoading(true);
     fetch(
-      `${WEATHER_API_URL}/weather?q=${searchData}&units=metric&appid=${WEATHER_API_KEY}`
+      `${WEATHER_API_URL}/weather?q=${city}&units=metric&appid=${WEATHER_API_KEY}`
     )
       .then((response) => response.json())
       .then((weatherResponse) => {
-        console.log(weatherResponse);
         const {
           coord: { lat, lon },
         } = weatherResponse;
@@ -43,10 +43,18 @@ function App() {
       .catch((err) => {
         setCurrentWeather(null);
         setForecast(null);
-        toast.error("City not found !!!, Enter valid city name");
+        setLoading(false);
+        toast.error("City not found! Enter a valid city name.");
       });
-    setLoading(false);
   };
+
+  const handleOnSearch = (searchData) => {
+    fetchWeatherData(searchData);
+  };
+
+  useEffect(() => {
+    fetchWeatherData(defaultCity);
+  }, []);
 
   return (
     <div>
